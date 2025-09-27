@@ -1,46 +1,58 @@
 class Solution {
-    public int[] searchRange(int[] nums, int target) {
-         if (nums.length == 0) {
-            return new int[]{-1, -1};
-        }
+    public int[] searchRange(int[] arr, int target) {
+     int n=arr.length;
+     int ans []= new int[2];
+      ans = new int[]{-1,-1};
+     if(n==0) return ans;
+      ans[0]=first(arr,target);
+      ans[1]=last(arr,target);
+     return ans;
+    }
 
-        int[] result = {-1, -1};
+    public int first(int [] arr , int k){
+        int ans=-1;
+        int i=0;
+        int j=arr.length-1;
 
-
-        int s = 0;
-        int e = nums.length - 1;
-
-
-        while (s <= e) {
-            int mid = s + (e - s) / 2;
-            if (nums[mid] < target) {
-                s = mid + 1;
-            } else {
-                e = mid - 1;
+        while(i<=j){
+            int mid= i+(j-i)/2;
+            if(arr[mid]==k){
+                ans=mid;
+                j=mid-1;
             }
-        }
-        
-
-        if (s < nums.length && nums[s] == target) {
-            result[0] = s; 
-        } else {
-            return new int[]{-1, -1}; 
-        }
-
-
-        e = nums.length - 1;
-
-        
-        while (s <= e) {
-            int mid = s + (e - s) / 2;
-            if (nums[mid] <= target) {
-                s = mid + 1; 
-            } else {
-                e = mid - 1; 
+            else if(arr[mid]>k){
+                j=mid-1;
             }
+            else{
+                i=mid+1;
+            }
+            
         }
+        return ans;
+        
+    }
 
-        result[1] = e; 
-        return result;
+
+    public int last(int [] arr , int k){
+        int ans=-1;
+        int i=0;
+        int j=arr.length-1;
+
+        while(i<=j){
+            int mid= i+(j-i)/2;
+            if(arr[mid]==k){
+                ans=mid;
+                i=mid+1;
+            }
+            else if(arr[mid]>k){
+                j=mid-1;
+            }
+            else{
+                i=mid+1;
+            }
+            
+        }
+        return ans;
+        
     }
 }
